@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"
+<html lang="fr"
 xmlns:th="http://www.thymeleaf.org"
 layout:decorate="~{layouts/main-layout}">
   <head>
@@ -16,6 +16,15 @@ layout:decorate="~{layouts/main-layout}">
         <h1>La carte de nos pizzas</h1>
       </div>
 
+      
+      <div class="col-2 offset-2 mb-3">
+          <label for="type" class="form-label">type de produit</label>
+          <select class="form-select" id="type">
+            <option selected value="1">pizza </option>
+            <option value="2">boisson </option>
+         </select>
+      </div>
+      
       <div class="row">
         <div class="col-8 offset-2 ">
         <div class="wrapper"> 
@@ -28,9 +37,20 @@ layout:decorate="~{layouts/main-layout}">
             <div class="card-body">
               <h5 class="card-title" th:text="${produit.nom}"></h5>
               <p class="card-text" th:text="${produit.description}"></p>
-              <p class="cart-text" th:text="${produit.prix}"></p>
-              <label class="form-label">Quantité</label>
-              <input type="number" name="quantite">
+              <div class="d-flex">
+                <label>prix : </label>
+                <p class="cart-text" th:text="${produit.prix}"></p>
+              </div>
+              <div class="d-flex" >
+              <label class="form-label">Quantité : </label>
+              <select class="form-select w-25 mb-2" id="quantite" name="quantite">
+                  <option value="1" selected>1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+              </select>
+            </div>
               <button class="btn btn-info" > ajouter</button>
             </div>
           </div>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr"
+xmlns:th="http://www.thymeleaf.org"
+layout:decorate="~{layouts/main-layout}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>carte</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+  <body>
+	  
+	  <main layout:fragment="content">
+      <div class="text-center mt-5 mb-5">
+        <h1>votre panier</h1>
+      </div>
+
+      <form name="valider" th:action="@{/commande/valider}" method="POST">
+        <div class="row">
+          <div class="col-8 offset-2 ">
+          <div class="wrapper"> 
+            <tr th:each=" detailCommande : ${panier.lstDetail}">
+            <form th:action="@{/commande/panier}" method="POST" >  
+              <input type="hidden" name="idProduit" th:value="${detailCommande.produit.id}">
+            
+            <div class="card mb-3 mt-3" style="width: 18rem; ">
+              <img id="imgpizza" th:src="${detailCommande.produit.urlImage}" class="card-img-top" >
+              <div class="card-body">
+                <h5 class="card-title" th:text="${detailCommande.produit.nom}"></h5>
+                <div class="d-flex">
+                    <label class="form-label">prix : </label>
+                    <p class="cart-text" th:text="${detailCommande.produit.prix}"></p>
+                </div>
+                <div class="d-flex">
+                    <label class="form-label" >Quantitée :  </label>
+                    <p class="card-text" th:text="${detailCommande.quantite}"></p>
+                </div>
+                
+                <div class="btn-group" role="group">
+                  <button class="btn btn-warning" > - </button>
+                  <button class="btn btn-warning" > + </button>
+                </div>
+                <button class="btn btn-danger" > supprimer</button>
+                
+              </div>
+            </div>
+          
+          </form>
+          </tr>
+           
+        </div>
+      </div>
+  
+      
+    </div>
+          
+      <div class="text-center mt-5 mb-5">
+        <a class="btn btn-primary" th:href="@{/commande/valider}"> valider le panier</a>
+  
+      </div>    
+    </form>
+      
+      
+    </main>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  </body>
+</html>

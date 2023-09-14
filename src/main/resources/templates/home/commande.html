@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr"
+xmlns:th="http://www.thymeleaf.org"
+layout:decorate="~{layouts/main-layout}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>carte</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+  <body>
+	  
+	  <main layout:fragment="content">
+      <div class="text-center mt-5 mb-5">
+        <h1>recapitulatif de votre commande</h1>
+      </div>
+
+      <form th:action="@{/commande/commande}" method="POST">
+        <div class="row">
+            <div class="col-8 offset-2 bg-light">
+                <table class="table table-dark">
+                    <thead >
+                        <th>produit</th>
+                        <th>quantité</th>
+                        <th>prix</th>
+                        
+                    </thead>
+                    <tbody class="table-light">
+                        <tr th:each=" detailCommande : ${panier.lstDetail}">
+                            <td th:text="${detailCommande.produit.nom}"></td>
+                            <td th:text="${detailCommande.quantite}"></td>
+                            <td th:text="${detailCommande.produit.prix}"></td>
+                            
+                            
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="col-8 offset-2 bg-light mb-5">
+                <label>total a payer</label>
+                <input type="number" readonly>
+            </div>
+            <div class="col-2 offset-2 bg-light mb-5">
+                <label> date et heure de livraison</label>
+                <input type="datetime-local" class="form-control" >
+            </div>
+            <div class="col-2 offset-2 mb-5">
+                <button class="btn btn-primary" > payer</button>
+            </div>
+        </div>
+
+      </form>
+
+      
+    </main>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  </body>
+</html>
