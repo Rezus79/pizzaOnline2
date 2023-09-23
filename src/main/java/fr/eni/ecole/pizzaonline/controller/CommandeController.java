@@ -45,8 +45,11 @@ public class CommandeController {
 	@PostMapping("/panier")
 	String panier(@ModelAttribute("panier") Commande panier, @RequestParam long idProduit) {
 		for (DetailCommande dc : panier.getLstDetail()) {
-			if(dc.getProduit().getId() == idProduit ) {
+			if(dc.getProduit().getId() == idProduit && dc.getQuantite() == 1) {
 				panier.getLstDetail().remove(dc);
+				break;
+			}else if(dc.getProduit().getId() == idProduit && dc.getQuantite() > 1) {
+				dc.setQuantite(dc.getQuantite() - 1);
 				break;
 			}
 			
@@ -56,8 +59,12 @@ public class CommandeController {
 	}
 	
 	@GetMapping("/valider")
-	String validerPanier(@ModelAttribute("panier") Commande panier) {
-		
+	String validerPanier(@ModelAttribute("panier") Commande panier, Model model) {
+		float total = 0;
+		for(DetailCommande dc : panier.getLstDetail()) {
+			total = total + dc.getProduit().getPrix() * dc.getQuantite();
+		}
+		model.addAttribute("total",total);
 		return "home/commande";	
 	}
 }

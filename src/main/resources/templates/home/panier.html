@@ -16,7 +16,7 @@ layout:decorate="~{layouts/main-layout}">
         <h1>votre panier</h1>
       </div>
 
-      <form name="valider" th:action="@{/commande/valider}" method="POST">
+      <!--<form name="valider" th:action="@{/commande/valider}" method="POST">-->
         <div class="row">
           <div class="col-8 offset-2 ">
           <div class="wrapper"> 
@@ -37,10 +37,10 @@ layout:decorate="~{layouts/main-layout}">
                     <p class="card-text" th:text="${detailCommande.quantite}"></p>
                 </div>
                 
-                <div class="btn-group" role="group">
+                <!--<div class="btn-group" role="group">
                   <button class="btn btn-warning" > - </button>
                   <button class="btn btn-warning" > + </button>
-                </div>
+                </div>-->
                 <button class="btn btn-danger" > supprimer</button>
                 
               </div>
@@ -59,7 +59,7 @@ layout:decorate="~{layouts/main-layout}">
         <a class="btn btn-primary" th:href="@{/commande/valider}"> valider le panier</a>
   
       </div>    
-    </form>
+    <!--</form>-->
       
       
     </main>
