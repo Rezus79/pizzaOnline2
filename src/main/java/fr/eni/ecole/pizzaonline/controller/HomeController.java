@@ -33,7 +33,7 @@ public class HomeController {
 	}
 	
 	
-	@GetMapping("/gere")
+	@GetMapping("/private/gere")
 	String gere(Model model) {
 		model.addAttribute("produits", produitService.consulterProduit());
 		return "home/gere";

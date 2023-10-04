@@ -10,3 +10,7 @@ INSERT INTO produit (nom,type_produit_id,description,prix,url_Image) VALUE ('4fr
 INSERT INTO produit (nom,type_produit_id,description,prix,url_Image) VALUE ('calsone',1,'base tomate, fromage, jambon, oeuf',14,'/images/calsone.jpg' );
 INSERT INTO produit (nom,type_produit_id,description,prix,url_Image) VALUE ('coca',2,'boisson gazeuse',2.5,'/images/coca.jpg' );
 INSERT INTO produit (nom,type_produit_id,description,prix,url_Image) VALUE ('orangina',2,'boisson gazeuse',2.5,'/images/orangina.jpg' );
+
+INSERT INTO role (id, libelle) VALUE ('1','ADMIN');
+
+INSERT INTO utilisateur (id, id_Role, email, mot_de_passe, nom, prenom) VALUE('1','1','duparquet.florent@orange.fr','451ckg79','duparquet','florent');

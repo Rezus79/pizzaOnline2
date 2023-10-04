@@ -30,21 +30,6 @@ public class CommandeController {
 			panier = new Commande();
 			model.addAttribute("panier", panier);
 		}
-//		DetailCommande dc = new DetailCommande(produitService.consulterProduitParId(idProduit), panier, quantite);
-//		if (panier.getLstDetail().isEmpty() == true) {
-//			panier.getLstDetail().add(dc);
-//		} else {
-//			for (DetailCommande dec : panier.getLstDetail()) {
-//				if (dec.getProduit().equals(produitService.consulterProduitParId(idProduit))) {
-//					dc.setQuantite(dc.getQuantite() + quantite);
-//					break;
-//				} else {
-//					panier.getLstDetail().add(dc);
-//					break;
-//				}
-//			}
-//
-//		}
 		
 		Produit produit = produitService.consulterProduitParId(idProduit);
 		DetailCommande dc = null;
