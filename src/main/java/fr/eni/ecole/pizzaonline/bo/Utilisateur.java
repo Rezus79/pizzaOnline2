@@ -36,13 +36,7 @@ public class Utilisateur {
 	
 	public Utilisateur() {}
 
-	public Utilisateur(String nom, String prenom, String email, String motDePasse, Role role) {
-		this.nom = nom;
-		this.prenom = prenom;
-		this.email = email;
-		this.motDePasse = motDePasse;
-		this.role = role;
-	}
+
 	
 	public Utilisateur(String nom, String prenom, String email, String motDePasse, Long idRole) {
 		this.nom = nom;

@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -19,7 +22,7 @@ import fr.eni.ecole.pizzaonline.bo.Utilisateur;
 
 @Configuration
 @EnableWebSecurity
-public class SercurityConfig {
+public class SercurityConfig extends SecurityConfigurerAdapter{
 	
 	@Autowired
 	UtilisateurServiceImpl utilisateurServiceImpl;
@@ -39,7 +42,8 @@ public class SercurityConfig {
 
 		return http.build();
 	}
-
+	
+	
 	@Bean
 	public InMemoryUserDetailsManager userDetailsService() {
 
@@ -50,6 +54,7 @@ public class SercurityConfig {
 			UserDetails userDetails = User.withUsername(user.getEmail())
 					.password(encoder().encode(user.getMotDePasse())).build();
 			mem.createUser(userDetails);
+			
 		}
 		return mem;
 	}

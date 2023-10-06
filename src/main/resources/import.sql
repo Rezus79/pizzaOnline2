@@ -12,5 +12,6 @@ INSERT INTO produit (nom,type_produit_id,description,prix,url_Image) VALUE ('coc
 INSERT INTO produit (nom,type_produit_id,description,prix,url_Image) VALUE ('orangina',2,'boisson gazeuse',2.5,'/images/orangina.jpg' );
 
 INSERT INTO role (id, libelle) VALUE ('1','ADMIN');
+INSERT INTO role (id, libelle) VALUE ('2','GERANT');
+INSERT INTO role (id, libelle) VALUE ('3','CLIENT');
 
-INSERT INTO utilisateur (id, id_Role, email, mot_de_passe, nom, prenom) VALUE('1','1','duparquet.florent@orange.fr','451ckg79','duparquet','florent');
