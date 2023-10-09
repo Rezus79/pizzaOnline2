@@ -1,11 +1,13 @@
 package fr.eni.ecole.pizzaonline.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.eni.ecole.pizzaonline.bll.UtilisateurService;
 import fr.eni.ecole.pizzaonline.bo.Utilisateur;
@@ -19,6 +21,7 @@ public class UserController {
 	
 	@GetMapping("/login")
 	public String gerer(Model model) {
+		
 		return "home/login";
 	}
 	
@@ -47,4 +50,18 @@ public class UserController {
 		utilisateurService.CreerUtilisateur(utilisateur);
 		return "redirect:/private/gere";
 	}
+	
+	@GetMapping("/private/liste_manager")
+	public String listeDesUtiliasateur(Model model) {
+		model.addAttribute("utilisateurs", utilisateurService.consulterUtilisateurs());
+		return "home/gerer_utilisateurs";
+	}
+	
+	@PostMapping("/private/liste_manager")
+	public String listeDesUtilisateur(@RequestParam("id")long id) {
+		utilisateurService.supprimerUtilisateur(id);
+		return "redirect:/private/liste_manager";
+			
+		}
+	
 }

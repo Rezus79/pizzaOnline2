@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="fr"
+xmlns:th="http://www.thymeleaf.org"
+layout:decorate="~{layouts/main-layout}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>liste des utilisateurs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+  <body>
+	  
+	  <main layout:fragment="content">
+      <div class="text-center mt-5 mb-5">
+        <h1>liste des utilisateurs</h1>
+      </div>
+
+      
+            
+      <div class="row">
+        <div class="col-8 offset-2 ">
+        <div class="wrapper"> 
+          <tr th:each=" utilisateur : ${utilisateurs}">
+          <form th:action="@{/private/liste_manager}" method="POST" >  
+          <input type="hidden" name="id" th:value="${utilisateur.id}">
+          
+          <div class="card mb-3 mt-3" style="width: 18rem; ">
+            
+            <div class="card-body">
+              <h5 class="card-title" th:text="${utilisateur.nom}"></h5>
+              <p class="card-text" th:text="${utilisateur.prenom}"></p>
+              <p class="card-text" th:text="${utilisateur.email}"></p>
+              <div class="d-flex">
+                <p class="cart-text" th:text="${utilisateur.role.libelle}"></p>
+              </div>
+              <div class="d-flex" >
+              </div>
+              <button class="btn btn-danger" > supprimer</button>
+            </div>
+          </div>
+        
+        </form>
+        </tr>
+         
+      </div>
+    </div>
+
+    
+  </div>
+    </main>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  </body>
+</html>
