@@ -39,6 +39,12 @@ public class HomeController {
 		return "home/gere";
 	}
 	
+	@GetMapping("/private/modifier_prod")
+	String modifier(Model model) {
+		model.addAttribute("produits", produitService.consulterProduit());
+		return "home/modifier_prod";
+	}
+	
 	@GetMapping("/ajouter")
 	String ajout(Model model) {
 		model.addAttribute("produit", new Produit());
@@ -48,13 +54,13 @@ public class HomeController {
 	@PostMapping("/ajouter")
 	public String ajouterProduit(@ModelAttribute Produit produit) {
 		produitService.creerProduit(produit);
-		return "redirect:/gere";
+		return "redirect:/private/modifier_prod";
 	}
 	
 	@GetMapping("/suppression")
 	public String suppressionProduit(@RequestParam("id")long id){
 		produitService.supprimerProduit(id);
-		return "redirect:/gere";
+		return "redirect:/private/modifier_prod";
 	}
 	
 	@GetMapping("/details")
@@ -67,6 +73,6 @@ public class HomeController {
 	public String modifierProduit(@ModelAttribute Produit produit) {
 		produitService.modifierProduit(produit);
 		
-		return "redirect:/gere";
+		return "redirect:/private/modifier_prod";
 	}
 }

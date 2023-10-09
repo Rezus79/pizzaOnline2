@@ -35,4 +35,16 @@ public class UserController {
 		utilisateurService.CreerUtilisateur(utilisateur);
 		return "redirect:/login";
 	}
+	
+	@GetMapping("/private/creer_manager")
+	public String creerUtilisateurManage(Model model) {
+		model.addAttribute("utilisateur", new Utilisateur());
+		return "home/creer_manager";
+	}
+	
+	@PostMapping("/private/creer_manager")
+	public String creerUtilisateurManage(@ModelAttribute Utilisateur utilisateur) {
+		utilisateurService.CreerUtilisateur(utilisateur);
+		return "redirect:/private/gere";
+	}
 }

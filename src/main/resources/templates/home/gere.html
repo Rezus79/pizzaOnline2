@@ -13,35 +13,20 @@ layout:decorate="~{layouts/main-layout}">
 	  
 	  <main layout:fragment="content">
       <div class="text-center mt-5 mb-5">
-        <h1>géré la carte</h1>
+        <h1>géré le site </h1>
       </div>
-      <div class="row">
-        <div class="col-8 offset-2">
-        <div class="wrapper"> 
-          <tr th:each=" produit : ${produits}">
-           
-          
-          <div class="card mb-3 mt-3" style="width: 18rem;">
-            <img id="imgpizza" th:src="${produit.urlImage}" class="card-img-top" >
-            <div class="card-body">
-              <h5 class="card-title" th:text="${produit.nom}"></h5>
-              <p class="card-text" th:text="${produit.description}"></p>
-              <p class="cart-text" th:text="${produit.prix}"></p>
-              <a class="btn btn-warning" th:href="@{/details(id=${produit.id})}"> modifier</a>
-              <a class="btn btn-danger" th:href="@{/suppression(id=${produit.id})}"> supprimer</a>
-            </div>
-          </div>
+      <div class="row text-center mt-5 mb-5">
+        <div class="col-8 offset-2 mb-5">
         
-      
-        </tr>
-         
+          <a class="btn btn-primary" th:href="@{/private/modifier_prod}">modifier la carte </a>
+        </div>
+        <div class="col-8 offset-2 mb-5">
+          <a class="btn btn-primary" th:href="@{/private/creer_manager}">ajouter un utilisateur</a>
+
       </div>
     </div>
 
-    <div class="clo-8 offset-2 mb-3">
-      <a class="btn btn-info " th:href="@{/ajouter}">Ajouter un produit </a>
-
-    </div>
+    
   </div>
 
 
