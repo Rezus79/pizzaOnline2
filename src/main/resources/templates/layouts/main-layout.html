@@ -22,7 +22,9 @@
               <a class="nav-link active" th:href="@{/private/gere}">géré</a>
               <a class="nav-link active" th:href="@{/commande/panier}" >panier</a>
               <a class="nav-link" th:href="@{/creer}">creer un utilisateur</a>
-              
+              <div th:if="${#authorization.expression('isAuthenticated()')}">
+                <a class="nav-link" th:href="@{/logout}">Déconnexion</a>
+              </div>
             </div>
           </div>
         </div>

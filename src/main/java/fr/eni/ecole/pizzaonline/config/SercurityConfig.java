@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import fr.eni.ecole.pizzaonline.bll.UtilisateurServiceImpl;
@@ -32,25 +33,49 @@ public class SercurityConfig {
 		PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 		return encoder;
 	}
+	
 
+//	@Bean
+//	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//		http.authorizeHttpRequests(
+//				(requests) -> requests
+//						.requestMatchers("/private/**")
+//                        .hasAnyRole("ADMIN","GERANT")
+//                        .anyRequest()
+//                        .permitAll()
+//                        
+//		).formLogin((form) -> form.loginPage("/login").permitAll()).logout((logout) -> logout.permitAll());
+//		
+//		
+//		return http.build();
+//	}
+	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(
-				(requests) -> requests.requestMatchers("/private/**")
-									  .hasRole("ADMIN")
-									  
-									  .anyRequest()
-									  .permitAll()
-				
-									
+	    http
+	        .authorizeHttpRequests(requests ->
+	            requests
+	            	.requestMatchers("/private/**")
+	                .hasAnyRole("ADMIN", "GERANT")
+	                .anyRequest().permitAll()
+	        )
+	        .formLogin(form ->
+	            form
+	                .loginPage("/login")
+	                .permitAll()
+	        )
+	        .logout(logout ->
+	        logout
+	            .logoutUrl("/logout") // L'URL de déconnexion
+	            .logoutSuccessUrl("/login?logout") // Redirection après la déconnexion
+	            .deleteCookies("JSESSIONID")
+	            .invalidateHttpSession(true) // Invalider la session
+	            .clearAuthentication(true) // Effacer l'authentification de l'utilisateur
+	            .permitAll()
+	        );
 
-		).formLogin((form) -> form.loginPage("/login").permitAll()).logout((logout) -> logout.permitAll());
-		
-		
-		
-		return http.build();
+	    return http.build();
 	}
-	
 	
 //	@Bean
 //	public InMemoryUserDetailsManager userDetailsService() {
@@ -66,6 +91,7 @@ public class SercurityConfig {
 //		}
 //		return mem;
 //	}
+	
 	@Bean
 	public InMemoryUserDetailsManager userDetailsService() {
 	    List<Utilisateur> utilisateurs = utilisateurServiceImpl.consulterUtilisateurs();
@@ -86,5 +112,6 @@ public class SercurityConfig {
 
 	    return mem;
 	}
+
 	
 }
