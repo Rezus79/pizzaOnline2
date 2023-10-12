@@ -1,5 +1,8 @@
 package fr.eni.ecole.pizzaonline.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -56,7 +59,17 @@ public class UserController {
 	
 	@GetMapping("/private/liste_manager")
 	public String listeDesUtiliasateur(Model model) {
-		model.addAttribute("utilisateurs", utilisateurService.consulterUtilisateurs());
+		List<Utilisateur> users = new ArrayList<Utilisateur>();
+		List<Utilisateur> adminUsers = new ArrayList<Utilisateur>();
+		users.addAll(utilisateurService.consulterUtilisateurs());
+		
+		for(Utilisateur user : users) {
+			if(user.getRole().getLibelle().equals("ADMIN")  || user.getRole().getLibelle().equals("GERANT") ) {
+				adminUsers.add(user);
+			}
+		}
+		
+		model.addAttribute("utilisateurs", adminUsers);
 		return "home/gerer_utilisateurs";
 	}
 	
@@ -70,7 +83,7 @@ public class UserController {
 	@GetMapping("/logout")
 	public String logout(HttpServletResponse response) {
 		Cookie cookie = new Cookie("JSESSIONID", "nonConnecter");
-        cookie.setPath("/"); // Assurez-vous que le chemin du cookie correspond au chemin utilisé par votre application
+        cookie.setPath("/"); 
         response.addCookie(cookie);
 
         // Efface le contexte de sécurité
