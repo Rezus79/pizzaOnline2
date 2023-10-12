@@ -1,7 +1,8 @@
 package fr.eni.ecole.pizzaonline.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.eni.ecole.pizzaonline.bll.UtilisateurService;
 import fr.eni.ecole.pizzaonline.bo.Utilisateur;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class UserController {
@@ -64,5 +67,16 @@ public class UserController {
 			
 		}
 	
+	@GetMapping("/logout")
+	public String logout(HttpServletResponse response) {
+		Cookie cookie = new Cookie("JSESSIONID", "nonConnecter");
+        cookie.setPath("/"); // Assurez-vous que le chemin du cookie correspond au chemin utilisé par votre application
+        response.addCookie(cookie);
+
+        // Efface le contexte de sécurité
+        SecurityContextHolder.clearContext();
+
+		return "redirect:/";
+	}
 	
 }

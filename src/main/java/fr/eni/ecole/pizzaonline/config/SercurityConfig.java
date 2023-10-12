@@ -57,7 +57,8 @@ public class SercurityConfig {
 	            requests
 	            	.requestMatchers("/private/**")
 	                .hasAnyRole("ADMIN", "GERANT")
-	                .anyRequest().permitAll()
+	                .anyRequest()
+	                .permitAll()
 	        )
 	        .formLogin(form ->
 	            form
