@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import fr.eni.ecole.pizzaonline.bll.ClientService;
 import fr.eni.ecole.pizzaonline.bll.UtilisateurService;
+import fr.eni.ecole.pizzaonline.bo.Client;
 import fr.eni.ecole.pizzaonline.bo.Utilisateur;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,6 +27,9 @@ public class UserController {
 	@Autowired
 	UtilisateurService utilisateurService;
 	
+	@Autowired
+	ClientService clientService;
+	
 	@GetMapping("/login")
 	public String gerer(Model model) {
 		
@@ -35,13 +40,13 @@ public class UserController {
 	
 	@GetMapping("/creer")
 	public String creerUtilisateur(Model model) {
-		model.addAttribute("utilisateur", new Utilisateur());
+		model.addAttribute("client", new Client());
 		return "home/creer";
 	}
 	
 	@PostMapping("/creer")
-	public String creerUtilisateur(@ModelAttribute Utilisateur utilisateur) {
-		utilisateurService.CreerUtilisateur(utilisateur);
+	public String creerUtilisateur(@ModelAttribute Client client) {
+		clientService.CreerClient(client);
 		return "redirect:/login";
 	}
 	
@@ -63,6 +68,7 @@ public class UserController {
 		List<Utilisateur> adminUsers = new ArrayList<Utilisateur>();
 		users.addAll(utilisateurService.consulterUtilisateurs());
 		
+		//ajouter a la liste que les Admin et les Gerant les CLIENT ne sont pas gerer sur cette page
 		for(Utilisateur user : users) {
 			if(user.getRole().getLibelle().equals("ADMIN")  || user.getRole().getLibelle().equals("GERANT") ) {
 				adminUsers.add(user);

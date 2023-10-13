@@ -20,27 +20,29 @@ layout:decorate="~{layouts/main-layout}">
                 <div class="mb-3" hidden>
                     <label for="type" class="form-label">type d'utilisateur</label>
     
-                    <select class="form-select" id="type" th:field="*{utilisateur.role.id}">
-                     <!-- <option  value="1">ADMIN </option>
-                      <option value="2">GERANT </option>-->
+                    <select class="form-select" id="type" th:field="*{client.role.id}">
                       <option selected value="3">CLIENT </option>
                    </select>
                   </div>
                 <div class="mb-3">
                     <label for="nom" class="form-label">Nom</label>
-                    <input type="text" class="form-control" id="nom"  th:field="*{utilisateur.nom}">
+                    <input type="text" class="form-control" id="nom"  th:field="*{client.nom}">
                   </div>
                   <div class="mb-3">
                     <label for="prenom" class="form-label">Prenom</label>
-                    <input type="text" class="form-control" id="prenom"  th:field="*{utilisateur.prenom}">
+                    <input type="text" class="form-control" id="prenom"  th:field="*{client.prenom}">
+                  </div>
+                  <div class="mb-3">
+                    <label for="adresse" class="form-label">Adresse</label>
+                    <input type="text" class="form-control" id="adresse"  th:field="*{client.adresse}">
                   </div>
                   <div class="mb-3">
                     <label for="email" class="form-label">mail</label>
-                    <input type="email" class="form-control" id="email"  th:field="*{utilisateur.email}">
+                    <input type="email" class="form-control" id="email"  th:field="*{client.email}">
                   </div>
                   <div class="mb-3">
                     <label for="mdp" class="form-label">mot de passe</label>
-                    <input type="password" class="form-control" id="mdp"  th:field="*{utilisateur.motDePasse}">
+                    <input type="password" class="form-control" id="mdp"  th:field="*{client.motDePasse}">
                   </div>
                 
                 <input type="submit" value="creer"></input>

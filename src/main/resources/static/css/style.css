@@ -17,3 +17,6 @@ footer p{
     font-size: 12px;
 }
 
+.d-none {
+    display: none !important;
+}
