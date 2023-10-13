@@ -86,4 +86,15 @@ public class CommandeController {
 		model.addAttribute("total", total);
 		return "home/commande";
 	}
+	
+	@PostMapping("/client/commande")
+	String payerPanier(@ModelAttribute("panier") Commande panier, Model model) {
+		float total = 0;
+		for (DetailCommande dc : panier.getLstDetail()) {
+			total = total + dc.getProduit().getPrix() * dc.getQuantite();
+		}
+		model.addAttribute("total", total);
+		return "home/commande_valider";
+		
+	}
 }

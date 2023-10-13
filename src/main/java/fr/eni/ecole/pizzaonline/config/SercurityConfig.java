@@ -16,7 +16,9 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import fr.eni.ecole.pizzaonline.bll.ClientServiceImpl;
 import fr.eni.ecole.pizzaonline.bll.UtilisateurServiceImpl;
+import fr.eni.ecole.pizzaonline.bo.Client;
 import fr.eni.ecole.pizzaonline.bo.Utilisateur;
 
 @Configuration
@@ -26,7 +28,8 @@ public class SercurityConfig {
 	@Autowired
 	UtilisateurServiceImpl utilisateurServiceImpl;
 	
-	
+	@Autowired
+	ClientServiceImpl clientServiceImpl;
 
 	@Bean
 	public PasswordEncoder encoder() {
@@ -35,20 +38,7 @@ public class SercurityConfig {
 	}
 	
 
-//	@Bean
-//	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//		http.authorizeHttpRequests(
-//				(requests) -> requests
-//						.requestMatchers("/private/**")
-//                        .hasAnyRole("ADMIN","GERANT")
-//                        .anyRequest()
-//                        .permitAll()
-//                        
-//		).formLogin((form) -> form.loginPage("/login").permitAll()).logout((logout) -> logout.permitAll());
-//		
-//		
-//		return http.build();
-//	}
+
 	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -57,6 +47,8 @@ public class SercurityConfig {
 	            requests
 	            	.requestMatchers("/private/**")
 	                .hasAnyRole("ADMIN", "GERANT")
+	                .requestMatchers("*/client/**")
+	                .hasAnyRole("CLIENT", "GERANT", "ADMIN")
 	                .anyRequest()
 	                .permitAll()
 	        )
@@ -78,24 +70,12 @@ public class SercurityConfig {
 	    return http.build();
 	}
 	
-//	@Bean
-//	public InMemoryUserDetailsManager userDetailsService() {
-//
-//		List<Utilisateur> utilisateurs = utilisateurServiceImpl.consulterUtilisateurs();
-//		InMemoryUserDetailsManager mem = new InMemoryUserDetailsManager();
-//
-//		for (Utilisateur user : utilisateurs) {
-//			UserDetails userDetails = User.withUsername(user.getEmail())
-//					.password(encoder().encode(user.getMotDePasse())).build();
-//			mem.createUser(userDetails);
-//			
-//		}
-//		return mem;
-//	}
+
 	
 	@Bean
 	public InMemoryUserDetailsManager userDetailsService() {
 	    List<Utilisateur> utilisateurs = utilisateurServiceImpl.consulterUtilisateurs();
+	    List<Client> clients = clientServiceImpl.consulterClients();
 	    InMemoryUserDetailsManager mem = new InMemoryUserDetailsManager();
 
 	    for (Utilisateur utilisateur : utilisateurs) {
@@ -110,9 +90,23 @@ public class SercurityConfig {
 	        mem.createUser(userDetails);
 	        
 	    }
+	    
+	    for (Client client : clients) {
+	        // Assurez-vous d'utiliser l'encodeur configuré pour hacher le mot de passe
+	        String motDePasseEncode = client.getMotDePasse();
+
+	        UserDetails userDetails = User.withUsername(client.getEmail())
+	                .password(motDePasseEncode) // Utilisez le mot de passe haché
+	                .roles(client.getRole().getLibelle())
+	                .build();
+	        
+	        mem.createUser(userDetails);
+	        
+	    }
 
 	    return mem;
 	}
+
 
 	
 }
