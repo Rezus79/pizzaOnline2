@@ -1,20 +1,23 @@
 package fr.eni.ecole.pizzaonline.bo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
-//@Entity
+@Entity
 public class Etat {
 
 	
-	//@Id
-		private Integer id;
+		@Id
+		private Long id;
+		@Column(unique = true, nullable=false)
 		private String libelle;
 		
 		
 		public Etat() {}
 
 
-		public Etat(Integer id, String libelle) {
+		public Etat(Long id, String libelle) {
 			this.id = id;
 			this.libelle = libelle;
 		}
@@ -26,12 +29,12 @@ public class Etat {
 		}
 
 
-		public Integer getId() {
+		public Long getId() {
 			return id;
 		}
 
 
-		public void setId(Integer id) {
+		public void setId(Long id) {
 			this.id = id;
 		}
 

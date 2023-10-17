@@ -1,17 +1,22 @@
 package fr.eni.ecole.pizzaonline.bo;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Transient;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Commande {
 
@@ -19,25 +24,28 @@ public class Commande {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private LocalDate dateHeureLivraison;
-	private LocalDate dateHeurePreparation;
+	private LocalDateTime dateHeureLivraison;
+	private LocalDateTime dateHeurePreparation;
 
-	@OneToMany(mappedBy = "commande")
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<DetailCommande> lstDetail = new ArrayList<DetailCommande>();
 
-	@Transient
+	@ManyToOne
 	private Etat etat;
 
 	public Commande() {
 	}
+	public Commande(Etat etat) {
+		this.etat = etat;
+	}
 
-	public Commande(LocalDate dateHeureLivraison, LocalDate dateHeurePreparation, Etat etat) {
+	public Commande(LocalDateTime dateHeureLivraison, LocalDateTime dateHeurePreparation, Etat etat) {
 		this.dateHeureLivraison = dateHeureLivraison;
 		this.dateHeurePreparation = dateHeurePreparation;
 		this.etat = etat;
 	}
 
-	public Commande(Long id, LocalDate dateHeureLivraison, LocalDate dateHeurePreparation, Etat etat) {
+	public Commande(Long id, LocalDateTime dateHeureLivraison, LocalDateTime dateHeurePreparation, Etat etat) {
 		this.id = id;
 		this.dateHeureLivraison = dateHeureLivraison;
 		this.dateHeurePreparation = dateHeurePreparation;
@@ -52,19 +60,19 @@ public class Commande {
 		this.id = id;
 	}
 
-	public LocalDate getDateHeureLivraison() {
+	public LocalDateTime getDateHeureLivraison() {
 		return dateHeureLivraison;
 	}
 
-	public void setDateHeureLivraison(LocalDate dateHeureLivraison) {
-		this.dateHeureLivraison = dateHeureLivraison;
+	public void setDateHeureLivraison(LocalDateTime localDateTime) {
+		this.dateHeureLivraison = localDateTime;
 	}
 
-	public LocalDate getDateHeurePreparation() {
+	public LocalDateTime getDateHeurePreparation() {
 		return dateHeurePreparation;
 	}
 
-	public void setDateHeurePreparation(LocalDate dateHeurePreparation) {
+	public void setDateHeurePreparation(LocalDateTime dateHeurePreparation) {
 		this.dateHeurePreparation = dateHeurePreparation;
 	}
 
@@ -72,10 +80,17 @@ public class Commande {
 		return lstDetail;
 	}
 
+	
 //	public void setLstDetail(List<DetailCommande> lstDetail) {
 //		this.lstDetail = lstDetail;
 //	}
 
+	public Etat getEtat() {
+		return etat;
+	}
+	public void setEtat(Etat etat) {
+		this.etat = etat;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -92,4 +107,6 @@ public class Commande {
 		Commande other = (Commande) obj;
 		return Objects.equals(id, other.id);
 	}
+
+
 }

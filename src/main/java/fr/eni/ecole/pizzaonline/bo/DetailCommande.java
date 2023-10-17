@@ -23,7 +23,6 @@ public class DetailCommande {
 	}
 
 	public DetailCommande(Produit produit, Commande commande, Integer quantite) {
-		super();
 		this.produit = produit;
 		this.commande = commande;
 		this.quantite = quantite;

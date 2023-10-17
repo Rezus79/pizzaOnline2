@@ -60,6 +60,9 @@ public class ClientServiceImpl implements ClientService{
 		if (Objects.nonNull(client.getPrenom()) && !"".equalsIgnoreCase(client.getPrenom())) {
 			clientDB.setPrenom(client.getPrenom());
 		}
+		if (Objects.nonNull(client.getAdresse()) && !"".equalsIgnoreCase(client.getAdresse())) {
+			clientDB.setAdresse(client.getAdresse());
+		}
 		if (Objects.nonNull(client.getRole())) {
 			clientDB.setRole(client.getRole());
 		}
