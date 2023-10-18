@@ -19,12 +19,13 @@ public class CommandeServiceImpl implements CommandeService{
 	CommandeRepository commandeRepository;
 	@Autowired
 	EtatRepository etatRepository;
+	
 
 	
 	@Override
 	public void ajouterUneCommande(Commande commande) {
-		commande.setDateHeureLivraison(LocalDateTime.now().plusHours(2));
-		commande.setDateHeurePreparation(LocalDateTime.now().plusHours(1));
+
+	   
 		commandeRepository.save(commande);
 	}
 	
@@ -62,6 +63,7 @@ public class CommandeServiceImpl implements CommandeService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 	
 

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import fr.eni.ecole.pizzaonline.bo.Commande;
 import fr.eni.ecole.pizzaonline.bo.Produit;
+import jakarta.persistence.EntityManager;
 
 public interface CommandeService {
 
@@ -20,5 +21,6 @@ public interface CommandeService {
 	Commande modifierCommande(Commande commande, Long id);
 	
 	void passerCommandeEnPreparerParID(long id);
+
 	
 }

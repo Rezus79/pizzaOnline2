@@ -64,8 +64,8 @@ public class Commande {
 		return dateHeureLivraison;
 	}
 
-	public void setDateHeureLivraison(LocalDateTime localDateTime) {
-		this.dateHeureLivraison = localDateTime;
+	public void setDateHeureLivraison(Object object) {
+		this.dateHeureLivraison = (LocalDateTime) object;
 	}
 
 	public LocalDateTime getDateHeurePreparation() {

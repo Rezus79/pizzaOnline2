@@ -6,4 +6,6 @@ import fr.eni.ecole.pizzaonline.bo.Produit;
 
 public interface ProduitRepository extends JpaRepository<Produit, Long>{
 
+	
+
 }

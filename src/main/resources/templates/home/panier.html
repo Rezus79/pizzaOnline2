@@ -20,6 +20,11 @@ layout:decorate="~{layouts/main-layout}">
         <div class="row">
           <div class="col-8 offset-2 ">
           <div class="wrapper"> 
+            <th:block th:if="${panier.lstDetail.size() == 0}">
+                    <p>Votre panier est vide.</p>
+                </th:block>
+
+            <th:block th:if="${panier.lstDetail.size() > 0}">   
             <tr th:each=" detailCommande : ${panier.lstDetail}">
             <form th:action="@{/commande/panier}" method="POST" >  
               <input type="hidden" name="idProduit" th:value="${detailCommande.produit.id}">
@@ -48,7 +53,7 @@ layout:decorate="~{layouts/main-layout}">
           
           </form>
           </tr>
-           
+        </th:block> 
         </div>
       </div>
   

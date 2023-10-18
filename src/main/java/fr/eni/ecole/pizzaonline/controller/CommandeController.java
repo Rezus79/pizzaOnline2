@@ -1,5 +1,9 @@
 package fr.eni.ecole.pizzaonline.controller;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import fr.eni.ecole.pizzaonline.bll.CommandeService;
+import fr.eni.ecole.pizzaonline.bll.CommandeServiceImpl;
 import fr.eni.ecole.pizzaonline.bll.ProduitService;
 import fr.eni.ecole.pizzaonline.bo.Commande;
 import fr.eni.ecole.pizzaonline.bo.DetailCommande;
+import fr.eni.ecole.pizzaonline.bo.Etat;
 import fr.eni.ecole.pizzaonline.bo.Produit;
 
 @Controller
@@ -20,8 +27,16 @@ import fr.eni.ecole.pizzaonline.bo.Produit;
 @SessionAttributes("panier")
 public class CommandeController {
 
+	
+	
 	@Autowired
 	public ProduitService produitService;
+	
+	@Autowired
+	public CommandeService commandeService;
+	
+	
+	
 
 	@PostMapping("/menu")
 	String menu(@RequestParam Long idProduit, @RequestParam Integer quantite, Model model) {
@@ -94,7 +109,20 @@ public class CommandeController {
 			total = total + dc.getProduit().getPrix() * dc.getQuantite();
 		}
 		model.addAttribute("total", total);
+		LocalDateTime dateHeureLivraison = LocalDateTime.now();
+		
+	
+		
+		panier.setDateHeureLivraison(model.getAttribute("dateHeureLivraison"));
+		LocalDateTime dateHeurePreparation = dateHeureLivraison.minusHours(1);
+		panier.setDateHeurePreparation(dateHeurePreparation);
+		panier.setEtat(new Etat(1L,"en preparation"));
+		commandeService.ajouterUneCommande(panier);
 		return "home/commande_valider";
 		
 	}
+	
+
+
+	
 }
