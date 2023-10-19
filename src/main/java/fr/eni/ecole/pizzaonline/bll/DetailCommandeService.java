@@ -7,7 +7,7 @@ import fr.eni.ecole.pizzaonline.bo.Commande;
 
 public interface DetailCommandeService {
 	
-	Commande creerDetailCommande(Commande commande);
+	void creerDetailCommande(Commande commande);
 
 	List<Commande> consulterDetailCommandes();
 

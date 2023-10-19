@@ -17,9 +17,9 @@ public class DetailCommandeServiceImpl implements DetailCommandeService{
 	DetailCommandeRepository detailCommandeRepository;
 
 	@Override
-	public Commande creerDetailCommande(Commande commande) {
+	public void creerDetailCommande(Commande commande) {
 		// TODO Auto-generated method stub
-		return null;
+		detailCommandeRepository.saveAll(commande.getLstDetail());
 	}
 
 	@Override

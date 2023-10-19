@@ -27,7 +27,7 @@ public class Commande {
 	private LocalDateTime dateHeureLivraison;
 	private LocalDateTime dateHeurePreparation;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "commande")
 	private List<DetailCommande> lstDetail = new ArrayList<DetailCommande>();
 
 	@ManyToOne

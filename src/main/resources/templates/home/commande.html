@@ -45,7 +45,7 @@ layout:decorate="~{layouts/main-layout}">
             </div>
             <div class="col-2 offset-2 bg-light mb-5">
                 <label> date et heure de livraison</label>
-                <input type="datetime-local" class="form-control" >
+                <input type="datetime-local" class="form-control" th:field="*{panier.dateHeureLivraison}" required="required">
             </div>
             <div class="col-2 offset-2 mb-5">
                 <button class="btn btn-primary" > payer</button>

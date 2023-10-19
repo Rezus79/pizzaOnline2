@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import fr.eni.ecole.pizzaonline.bll.CommandeService;
 import fr.eni.ecole.pizzaonline.bll.CommandeServiceImpl;
+import fr.eni.ecole.pizzaonline.bll.DetailCommandeService;
 import fr.eni.ecole.pizzaonline.bll.ProduitService;
 import fr.eni.ecole.pizzaonline.bo.Commande;
 import fr.eni.ecole.pizzaonline.bo.DetailCommande;
@@ -24,7 +25,7 @@ import fr.eni.ecole.pizzaonline.bo.Produit;
 
 @Controller
 @RequestMapping("/commande")
-@SessionAttributes("panier")
+@SessionAttributes({"panier","produit"})
 public class CommandeController {
 
 	
@@ -35,6 +36,8 @@ public class CommandeController {
 	@Autowired
 	public CommandeService commandeService;
 	
+	@Autowired
+	public DetailCommandeService dcs;
 	
 	
 
@@ -109,15 +112,16 @@ public class CommandeController {
 			total = total + dc.getProduit().getPrix() * dc.getQuantite();
 		}
 		model.addAttribute("total", total);
-		LocalDateTime dateHeureLivraison = LocalDateTime.now();
 		
-	
 		
-		panier.setDateHeureLivraison(model.getAttribute("dateHeureLivraison"));
-		LocalDateTime dateHeurePreparation = dateHeureLivraison.minusHours(1);
+		
+		
+		panier.setDateHeureLivraison(panier.getDateHeureLivraison());
+		LocalDateTime dateHeurePreparation = panier.getDateHeureLivraison().minusHours(1);
 		panier.setDateHeurePreparation(dateHeurePreparation);
 		panier.setEtat(new Etat(1L,"en preparation"));
 		commandeService.ajouterUneCommande(panier);
+		dcs.creerDetailCommande(panier);
 		return "home/commande_valider";
 		
 	}
