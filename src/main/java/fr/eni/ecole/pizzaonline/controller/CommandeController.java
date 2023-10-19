@@ -113,9 +113,6 @@ public class CommandeController {
 		}
 		model.addAttribute("total", total);
 		
-		
-		
-		
 		panier.setDateHeureLivraison(panier.getDateHeureLivraison());
 		LocalDateTime dateHeurePreparation = panier.getDateHeureLivraison().minusHours(1);
 		panier.setDateHeurePreparation(dateHeurePreparation);
