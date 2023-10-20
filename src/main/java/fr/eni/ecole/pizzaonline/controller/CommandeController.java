@@ -1,10 +1,13 @@
 package fr.eni.ecole.pizzaonline.controller;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import fr.eni.ecole.pizzaonline.bll.ClientService;
 import fr.eni.ecole.pizzaonline.bll.CommandeService;
 import fr.eni.ecole.pizzaonline.bll.CommandeServiceImpl;
 import fr.eni.ecole.pizzaonline.bll.DetailCommandeService;
@@ -39,7 +43,8 @@ public class CommandeController {
 	@Autowired
 	public DetailCommandeService dcs;
 	
-	
+	@Autowired
+	public ClientService cs;
 
 	@PostMapping("/menu")
 	String menu(@RequestParam Long idProduit, @RequestParam Integer quantite, Model model) {
@@ -113,6 +118,14 @@ public class CommandeController {
 		}
 		model.addAttribute("total", total);
 		
+		String clientId = null;
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication != null) {
+		    clientId = authentication.getName();
+		}
+		
+		
+		panier.setClient(cs.findByEmail(clientId));
 		panier.setDateHeureLivraison(panier.getDateHeureLivraison());
 		LocalDateTime dateHeurePreparation = panier.getDateHeureLivraison().minusHours(1);
 		panier.setDateHeurePreparation(dateHeurePreparation);
@@ -124,6 +137,13 @@ public class CommandeController {
 	}
 	
 
-
+	@GetMapping("/private/liste_commandes")
+	String listeCommande(Model model) {
+		List<Commande> lstCommandes = new ArrayList<Commande>();
+		lstCommandes.addAll(commandeService.consulterCommandes());
+		model.addAttribute("commandes", lstCommandes);
+		return "home/liste_commandes";
+		
+	}
 	
 }

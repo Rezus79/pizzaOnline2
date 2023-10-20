@@ -32,24 +32,30 @@ public class Commande {
 
 	@ManyToOne
 	private Etat etat;
-
+	
+	@ManyToOne
+	private Client client;
+	
 	public Commande() {
 	}
+	
 	public Commande(Etat etat) {
 		this.etat = etat;
 	}
 
-	public Commande(LocalDateTime dateHeureLivraison, LocalDateTime dateHeurePreparation, Etat etat) {
+	public Commande(LocalDateTime dateHeureLivraison, LocalDateTime dateHeurePreparation, Etat etat,Client client) {
 		this.dateHeureLivraison = dateHeureLivraison;
 		this.dateHeurePreparation = dateHeurePreparation;
 		this.etat = etat;
+		this.client = client;
 	}
 
-	public Commande(Long id, LocalDateTime dateHeureLivraison, LocalDateTime dateHeurePreparation, Etat etat) {
+	public Commande(Long id, LocalDateTime dateHeureLivraison, LocalDateTime dateHeurePreparation, Etat etat, Client client) {
 		this.id = id;
 		this.dateHeureLivraison = dateHeureLivraison;
 		this.dateHeurePreparation = dateHeurePreparation;
 		this.etat = etat;
+		this.client = client;
 	}
 
 	public Long getId() {
@@ -91,6 +97,17 @@ public class Commande {
 	public void setEtat(Etat etat) {
 		this.etat = etat;
 	}
+	
+	
+	
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

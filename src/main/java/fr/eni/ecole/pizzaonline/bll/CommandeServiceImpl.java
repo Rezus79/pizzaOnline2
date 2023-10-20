@@ -31,7 +31,7 @@ public class CommandeServiceImpl implements CommandeService{
 	
 	@Override
 	public List<Commande> consulterCommandesAPreparer() {
-		return commandeRepository.findByEtatIs(etatRepository.findById(2l).get()).get(); 
+		return commandeRepository.findByEtatIs(etatRepository.findById(1l).get()).get(); 
 	}
 	
 	@Override
@@ -49,7 +49,7 @@ public class CommandeServiceImpl implements CommandeService{
 	@Override
 	public List<Commande> consulterCommandes() {
 		// TODO Auto-generated method stub
-		return null;
+		return commandeRepository.findAll();
 	}
 
 	@Override
