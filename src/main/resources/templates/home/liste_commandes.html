@@ -22,7 +22,7 @@ layout:decorate="~{layouts/main-layout}">
         <div class="col-8 offset-2 ">
         <div class="wrapper"> 
           <tr th:each=" commande : ${commandes}">
-          <form th:action="@{/private/liste_commandes}" method="POST" >  
+          <form th:action="@{/commande/private/liste_commandes}" method="POST" >  
           <input type="hidden" name="id" th:value="${commande.id}">
           
           <div class="card mb-3 mt-3" style="width: 18rem; ">
@@ -30,14 +30,15 @@ layout:decorate="~{layouts/main-layout}">
             <div class="card-body">
               <h5 class="card-title" th:text="${commande.dateHeurePreparation}"></h5>
               <p class="card-text" th:text="${commande.etat.libelle}"></p>
-              
-              <!--<p class="card-text" th:text="${commande.client.adresse}"></p>-->
+              <p class="card-text" th:text="${commande.client.nom}"></p>
+              <p class="card-text" th:text="${commande.client.prenom}"></p>
+              <p class="card-text" th:text="${commande.client.adresse}"></p>
               <div class="d-flex">
                 
               </div>
               <div class="d-flex" >
               </div>
-              <button class="btn btn-warning" > modifier l'etat</button>
+              <button class="btn btn-primary" > detail de la commande</button>
             </div>
           </div>
         

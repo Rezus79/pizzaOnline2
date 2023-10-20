@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.eni.ecole.pizzaonline.bo.Commande;
+import fr.eni.ecole.pizzaonline.bo.DetailCommande;
 import fr.eni.ecole.pizzaonline.dal.DetailCommandeRepository;
 
 @Service
@@ -22,16 +23,15 @@ public class DetailCommandeServiceImpl implements DetailCommandeService{
 		detailCommandeRepository.saveAll(commande.getLstDetail());
 	}
 
-	@Override
 	public List<Commande> consulterDetailCommandes() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
-	public Optional<Commande> getDetailCommandeById(Long id) {
+	public List<DetailCommande> getDetailCommandeById(Long id) {
 		// TODO Auto-generated method stub
-		return Optional.empty();
+		return detailCommandeRepository.findAll();
 	}
 
 	@Override

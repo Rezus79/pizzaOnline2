@@ -142,8 +142,20 @@ public class CommandeController {
 		List<Commande> lstCommandes = new ArrayList<Commande>();
 		lstCommandes.addAll(commandeService.consulterCommandes());
 		model.addAttribute("commandes", lstCommandes);
+	
 		return "home/liste_commandes";
 		
+	}
+	
+	@PostMapping("/private/liste_commandes")
+	String detailCommande(@RequestParam("id")long id, Model model) {
+		model.addAttribute("detailCommande", dcs.getDetailCommandeById(id));
+		List<Produit> produits = new ArrayList<Produit>();
+		for (DetailCommande dc : dcs.getDetailCommandeById(id)) {
+			produits.add(dc.getProduit());
+		}
+		model.addAttribute("produits", produits);
+		return "home/detail_commande";
 	}
 	
 }
